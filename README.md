@@ -1,2 +1,5 @@
-# RideLink
-Five College Campus Ride &amp; Carpool System
+# RideLink Overview
+
+RideLink is a campus ride and carpool coordination platform designed for students within the Five College Consortium (UMass Amherst, Amherst College, Hampshire College, Mount Holyoke College, and Smith College). Currently, students often rely on informal communication channels such as group chats or social media to arrange rides between campuses, to the airport, grocery stores, or other destinations. These methods are disorganized, unreliable, and lack safety or accountability mechanisms.
+The primary users of RideLink are Five College students who either need transportation (passengers) or are willing to offer rides (drivers). Other stakeholders include student organizations coordinating travel and potential administrators who may monitor activity for safety and moderation. The main objective of RideLink is to provide a centralized platform where students can post rides, search for available rides, request seats, and communicate with drivers or passengers. By simplifying ride coordination and improving reliability, RideLink helps the Five College community travel more efficiently while promoting shared transportation and reducing transportation costs.
+RideLink is needed because it replaces fragmented ride coordination with a structured, safer, and more reliable system. By enabling students to easily find and share rides within their community, the platform improves mobility between campuses and helps foster stronger collaboration within the Five College network.
