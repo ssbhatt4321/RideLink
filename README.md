@@ -1,5 +1,16 @@
-# RideLink Overview
+# React + Vite
 
-RideLink is a campus ride and carpool coordination platform designed for students within the Five College Consortium (UMass Amherst, Amherst College, Hampshire College, Mount Holyoke College, and Smith College). Currently, students often rely on informal communication channels such as group chats or social media to arrange rides between campuses, to the airport, grocery stores, or other destinations. These methods are disorganized, unreliable, and lack safety or accountability mechanisms.
-The primary users of RideLink are Five College students who either need transportation (passengers) or are willing to offer rides (drivers). Other stakeholders include student organizations coordinating travel and potential administrators who may monitor activity for safety and moderation. The main objective of RideLink is to provide a centralized platform where students can post rides, search for available rides, request seats, and communicate with drivers or passengers. By simplifying ride coordination and improving reliability, RideLink helps the Five College community travel more efficiently while promoting shared transportation and reducing transportation costs.
-RideLink is needed because it replaces fragmented ride coordination with a structured, safer, and more reliable system. By enabling students to easily find and share rides within their community, the platform improves mobility between campuses and helps foster stronger collaboration within the Five College network.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+
+Currently, two official plugins are available:
+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+
+## React Compiler
+
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
