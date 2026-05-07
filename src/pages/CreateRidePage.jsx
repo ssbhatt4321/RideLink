@@ -1,129 +1,153 @@
 import { useState } from "react";
 import Navbar from "../components/Navbar";
 
-function CreateRidePage({ setCurrentPage, setRides }) {
-  const [formData, setFormData] = useState({
-    origin: "",
-    destination: "",
-    departureDate: "",
-    departureTime: "",
-    seatsAvailable: "",
-    notes: "",
-  });
+const initialFormState = {
+  origin: "",
+  destination: "",
+  departureDate: "",
+  departureTime: "",
+  seatsAvailable: "",
+  price: "",
+  notes: "",
+};
 
+function CreateRidePage({ currentPage, setCurrentPage, onCreateRide }) {
+  const [formData, setFormData] = useState(initialFormState);
   const [success, setSuccess] = useState(false);
+  const [createdRide, setCreatedRide] = useState(null);
 
-  const handleChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
+  const handleChange = (event) => {
+    setSuccess(false);
+    setFormData((prevData) => ({
+      ...prevData,
+      [event.target.name]: event.target.value,
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-    const newRide = {
-      id: Date.now(),
-      driverName: "Akshat Shrivastava",
-      driverCollege: "UMass Amherst",
-      origin: formData.origin,
-      destination: formData.destination,
-      departureDate: formData.departureDate,
-      departureTime: formData.departureTime,
+    const newRide = await onCreateRide({
+      ...formData,
       seatsAvailable: Number(formData.seatsAvailable),
-      price: "$10",
-      notes: formData.notes,
-      status: "Available",
-    };
-
-    setRides((prev) => [newRide, ...prev]);
-    setSuccess(true);
-
-    setFormData({
-      origin: "",
-      destination: "",
-      departureDate: "",
-      departureTime: "",
-      seatsAvailable: "",
-      notes: "",
     });
+
+    setCreatedRide(newRide);
+    setSuccess(true);
+    setFormData(initialFormState);
   };
 
   return (
     <>
-      <Navbar setCurrentPage={setCurrentPage} />
+      <Navbar currentPage={currentPage} setCurrentPage={setCurrentPage} />
 
-      <div className="page-container">
-        <div className="card form-card">
-          <h2>Post a New Ride</h2>
+      <main className="page-container">
+        <section className="card form-card">
+          <p className="eyebrow">Driver workflow</p>
+          <h1>Post a New Ride</h1>
+          <p className="muted">
+            Create a ride listing that passengers can discover and request.
+          </p>
 
           {success && (
-            <div className="success-banner">Ride posted successfully.</div>
+            <div className="success-banner">
+              Ride posted successfully
+              {createdRide ? `: ${createdRide.origin} → ${createdRide.destination}` : "."}
+            </div>
           )}
 
           <form onSubmit={handleSubmit} className="form">
-            <label>Origin</label>
+            <label htmlFor="origin">Origin</label>
             <input
+              id="origin"
               type="text"
               name="origin"
+              placeholder="UMass Amherst"
               value={formData.origin}
               onChange={handleChange}
               required
             />
 
-            <label>Destination</label>
+            <label htmlFor="destination">Destination</label>
             <input
+              id="destination"
               type="text"
               name="destination"
+              placeholder="Boston Logan Airport"
               value={formData.destination}
               onChange={handleChange}
               required
             />
 
-            <label>Date</label>
-            <input
-              type="date"
-              name="departureDate"
-              value={formData.departureDate}
-              onChange={handleChange}
-              required
-            />
+            <div className="form-row">
+              <div>
+                <label htmlFor="departureDate">Date</label>
+                <input
+                  id="departureDate"
+                  type="date"
+                  name="departureDate"
+                  value={formData.departureDate}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-            <label>Time</label>
-            <input
-              type="time"
-              name="departureTime"
-              value={formData.departureTime}
-              onChange={handleChange}
-              required
-            />
+              <div>
+                <label htmlFor="departureTime">Time</label>
+                <input
+                  id="departureTime"
+                  type="time"
+                  name="departureTime"
+                  value={formData.departureTime}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
 
-            <label>Seats Available</label>
-            <input
-              type="number"
-              name="seatsAvailable"
-              min="1"
-              value={formData.seatsAvailable}
-              onChange={handleChange}
-              required
-            />
+            <div className="form-row">
+              <div>
+                <label htmlFor="seatsAvailable">Seats Available</label>
+                <input
+                  id="seatsAvailable"
+                  type="number"
+                  name="seatsAvailable"
+                  min="1"
+                  value={formData.seatsAvailable}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-            <label>Notes</label>
+              <div>
+                <label htmlFor="price">Cost Share</label>
+                <input
+                  id="price"
+                  type="text"
+                  name="price"
+                  placeholder="$10 or Free"
+                  value={formData.price}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+
+            <label htmlFor="notes">Notes</label>
             <textarea
+              id="notes"
               name="notes"
               rows="4"
               value={formData.notes}
               onChange={handleChange}
-              placeholder="Optional details about pickup, luggage, or cost-sharing"
+              placeholder="Pickup location, luggage limits, timing, etc."
             />
 
             <button type="submit" className="primary-btn">
               Post Ride
             </button>
           </form>
-        </div>
-      </div>
+        </section>
+      </main>
     </>
   );
 }

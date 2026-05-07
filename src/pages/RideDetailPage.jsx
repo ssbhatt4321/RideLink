@@ -1,76 +1,107 @@
 import { useState } from "react";
 import Navbar from "../components/Navbar";
 
-function RideDetailPage({ selectedRide, setCurrentPage }) {
-  const [requested, setRequested] = useState(false);
+function RideDetailPage({ currentPage, selectedRide, setCurrentPage, onRequestSeat }) {
+  const [requestStatus, setRequestStatus] = useState("idle");
 
   if (!selectedRide) {
     return (
       <>
-        <Navbar setCurrentPage={setCurrentPage} />
-        <div className="page-container">
-          <div className="card">
+        <Navbar currentPage={currentPage} setCurrentPage={setCurrentPage} />
+        <main className="page-container">
+          <div className="card empty-state">
             <h2>No ride selected</h2>
+            <p>Please return to the ride feed and choose a ride.</p>
             <button className="primary-btn" onClick={() => setCurrentPage("feed")}>
               Back to Ride Feed
             </button>
           </div>
-        </div>
+        </main>
       </>
     );
   }
 
-  const handleRequestSeat = () => {
-    setRequested(true);
+  const handleRequestSeat = async () => {
+    setRequestStatus("loading");
+    await onRequestSeat(selectedRide.id);
+    setRequestStatus("submitted");
   };
+
+  const isFull = selectedRide.seatsAvailable === 0 || selectedRide.status === "Full";
+  const requestSubmitted = requestStatus === "submitted";
 
   return (
     <>
-      <Navbar setCurrentPage={setCurrentPage} />
+      <Navbar currentPage={currentPage} setCurrentPage={setCurrentPage} />
 
-      <div className="page-container">
-        <div className="card detail-card">
-          <h2>
+      <main className="page-container">
+        <button className="link-btn" onClick={() => setCurrentPage("feed")}>
+          ← Back to Ride Feed
+        </button>
+
+        <section className="card detail-card">
+          <div className="card-top-row">
+            <span className={`status-badge ${isFull ? "full" : "available"}`}>
+              {isFull ? "Full" : "Available"}
+            </span>
+            <span className="price-pill">{selectedRide.price}</span>
+          </div>
+
+          <h1>
             {selectedRide.origin} → {selectedRide.destination}
-          </h2>
+          </h1>
 
-          <p>
-            <strong>Driver:</strong> {selectedRide.driverName}
-          </p>
-          <p>
-            <strong>College:</strong> {selectedRide.driverCollege}
-          </p>
-          <p>
-            <strong>Departure Date:</strong> {selectedRide.departureDate}
-          </p>
-          <p>
-            <strong>Departure Time:</strong> {selectedRide.departureTime}
-          </p>
-          <p>
-            <strong>Seats Available:</strong> {selectedRide.seatsAvailable}
-          </p>
-          <p>
-            <strong>Price:</strong> {selectedRide.price}
-          </p>
-          <p>
-            <strong>Notes:</strong> {selectedRide.notes}
-          </p>
+          <div className="detail-grid">
+            <p>
+              <strong>Driver:</strong> {selectedRide.driverName}
+            </p>
+            <p>
+              <strong>College:</strong> {selectedRide.driverCollege}
+            </p>
+            <p>
+              <strong>Departure Date:</strong> {selectedRide.departureDate}
+            </p>
+            <p>
+              <strong>Departure Time:</strong> {selectedRide.departureTime}
+            </p>
+            <p>
+              <strong>Seats Available:</strong> {selectedRide.seatsAvailable}
+            </p>
+            <p>
+              <strong>Total Seats:</strong> {selectedRide.seatsTotal}
+            </p>
+          </div>
 
-          {requested && (
+          <div className="notes-box">
+            <strong>Ride notes:</strong>
+            <p>{selectedRide.notes}</p>
+          </div>
+
+          {requestSubmitted && (
             <div className="success-banner">
-              Seat request submitted successfully.
+              Seat request submitted successfully. Status: Pending driver approval.
+            </div>
+          )}
+
+          {isFull && (
+            <div className="warning-banner">
+              This ride is currently full, so seat requests are disabled.
             </div>
           )}
 
           <button
             className="primary-btn"
             onClick={handleRequestSeat}
-            disabled={requested || selectedRide.seatsAvailable === 0}
+            disabled={requestSubmitted || isFull || requestStatus === "loading"}
           >
-            {requested ? "Request Pending" : "Request Seat"}
+            {requestStatus === "loading"
+              ? "Submitting..."
+              : requestSubmitted
+                ? "Request Pending"
+                : "Request Seat"}
           </button>
-        </div>
-      </div>
+        </section>
+      </main>
     </>
   );
 }
