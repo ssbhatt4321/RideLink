@@ -70,26 +70,7 @@ export const mockRides = [
   },
 ];
 
-export const mockRequests = [
-  {
-    id: 201,
-    rideId: 101,
-    passengerName: "Akshat Shrivastava",
-    passengerCollege: "UMass Amherst",
-    seatsRequested: 1,
-    requestedAt: "2026-05-07 4:15 PM",
-    status: "Pending",
-  },
-  {
-    id: 202,
-    rideId: 102,
-    passengerName: "Riya Shah",
-    passengerCollege: "Hampshire College",
-    seatsRequested: 1,
-    requestedAt: "2026-05-07 3:45 PM",
-    status: "Approved",
-  },
-];
+export const mockRequests = [];
 
 export const mockMessages = [
   {

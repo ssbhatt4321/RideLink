@@ -42,7 +42,7 @@ function LoginPage({ setCurrentPage }) {
         </form>
 
         <p className="note">
-          For midpoint demo, this uses mock authentication.
+        Demo note: authentication is mocked for this prototype.
         </p>
       </div>
     </div>

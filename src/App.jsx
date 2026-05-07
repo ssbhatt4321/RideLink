@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getRides, requestSeat, createRide } from "./services/api";
+import { getRides, requestSeat, createRide, getDriverRequests } from "./services/api";
 import LoginPage from "./pages/LoginPage";
 import RideFeedPage from "./pages/RideFeedPage";
 import RideDetailPage from "./pages/RideDetailPage";
@@ -14,12 +14,15 @@ function App() {
   const [seatRequests, setSeatRequests] = useState([]);
 
   useEffect(() => {
-    async function loadRides() {
+    async function loadInitialData() {
       const loadedRides = await getRides();
+      const loadedRequests = await getDriverRequests();
+  
       setRides(loadedRides);
+      setSeatRequests(loadedRequests);
     }
-
-    loadRides();
+  
+    loadInitialData();
   }, []);
 
   const handleViewDetails = (ride) => {
@@ -37,6 +40,22 @@ function App() {
     const newRequest = await requestSeat(rideId);
     setSeatRequests((prevRequests) => [newRequest, ...prevRequests]);
     return newRequest;
+  };
+
+  const handleApproveRequest = (rideId) => {
+    setRides((prevRides) =>
+      prevRides.map((ride) => {
+        if (ride.id !== rideId) return ride;
+
+        const updatedSeats = Math.max(ride.seatsAvailable - 1, 0);
+
+        return {
+          ...ride,
+          seatsAvailable: updatedSeats,
+          status: updatedSeats === 0 ? "Full" : "Available",
+        };
+      })
+    );
   };
 
   return (
@@ -73,8 +92,10 @@ function App() {
         <DriverDashboardPage
           currentPage={currentPage}
           rides={rides}
-          localSeatRequests={seatRequests}
+          requests={seatRequests}
+          setSeatRequests={setSeatRequests}
           setCurrentPage={setCurrentPage}
+          onApproveRequest={handleApproveRequest}
         />
       )}
     </>

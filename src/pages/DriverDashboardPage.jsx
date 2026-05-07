@@ -1,27 +1,16 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import Navbar from "../components/Navbar";
 import RequestCard from "../components/RequestCard";
-import { getDriverRequests, updateRequestStatus } from "../services/api";
+import { updateRequestStatus } from "../services/api";
 
-function DriverDashboardPage({ currentPage, rides, localSeatRequests, setCurrentPage }) {
-  const [requests, setRequests] = useState([]);
-
-  useEffect(() => {
-    async function loadRequests() {
-      const loadedRequests = await getDriverRequests();
-      const combinedRequests = [...localSeatRequests, ...loadedRequests];
-
-      const uniqueRequests = combinedRequests.filter(
-        (request, index, self) =>
-            index === self.findIndex((r) => r.id === request.id)
-        );
-
-      setRequests(uniqueRequests);
-    }
-
-    loadRequests();
-  }, [localSeatRequests]);
-
+function DriverDashboardPage({
+  currentPage,
+  rides,
+  requests,
+  setSeatRequests,
+  setCurrentPage,
+  onApproveRequest,
+}) {
   const pendingCount = useMemo(
     () => requests.filter((request) => request.status === "Pending").length,
     [requests]
@@ -30,11 +19,17 @@ function DriverDashboardPage({ currentPage, rides, localSeatRequests, setCurrent
   const handleUpdateStatus = async (requestId, status) => {
     await updateRequestStatus(requestId, status);
 
-    setRequests((prevRequests) =>
+    const requestToUpdate = requests.find((request) => request.id === requestId);
+
+    setSeatRequests((prevRequests) =>
       prevRequests.map((request) =>
         request.id === requestId ? { ...request, status } : request
       )
     );
+
+    if (status === "Approved" && requestToUpdate) {
+      onApproveRequest(requestToUpdate.rideId);
+    }
   };
 
   const findRideById = (rideId) => rides.find((ride) => ride.id === rideId);
@@ -48,9 +43,7 @@ function DriverDashboardPage({ currentPage, rides, localSeatRequests, setCurrent
           <div>
             <p className="eyebrow">Driver dashboard</p>
             <h1>Manage Ride Requests</h1>
-            <p>
-              Review pending passenger requests and approve or reject them.
-            </p>
+            <p>Review pending passenger requests and approve or reject them.</p>
           </div>
 
           <div className="metric-card">
@@ -70,8 +63,12 @@ function DriverDashboardPage({ currentPage, rides, localSeatRequests, setCurrent
                     key={request.id}
                     request={request}
                     ride={findRideById(request.rideId)}
-                    onApprove={(requestId) => handleUpdateStatus(requestId, "Approved")}
-                    onReject={(requestId) => handleUpdateStatus(requestId, "Rejected")}
+                    onApprove={(requestId) =>
+                      handleUpdateStatus(requestId, "Approved")
+                    }
+                    onReject={(requestId) =>
+                      handleUpdateStatus(requestId, "Rejected")
+                    }
                   />
                 ))
               ) : (
