@@ -3,7 +3,7 @@ import { mockRides, mockRequests } from "../data/mockData";
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || "http://localhost:4000/api";
 
-const USE_BACKEND = import.meta.env.VITE_USE_BACKEND === "true";
+const useBackend = () => import.meta.env.VITE_USE_BACKEND === "true";
 
 // Demo user IDs from the seed.sql file.
 // Shashank = driver, Akshat = passenger.
@@ -91,7 +91,7 @@ function normalizeRequest(dbRequest) {
 }
 
 export async function getRides() {
-  if (!USE_BACKEND) {
+  if (!useBackend()) {
     await delay();
     return mockRides;
   }
@@ -101,7 +101,7 @@ export async function getRides() {
 }
 
 export async function createRide(rideData) {
-  if (!USE_BACKEND) {
+  if (!useBackend()) {
     await delay();
 
     return {
@@ -135,7 +135,7 @@ export async function createRide(rideData) {
 }
 
 export async function requestSeat(rideId) {
-  if (!USE_BACKEND) {
+  if (!useBackend()) {
     await delay();
 
     return {
@@ -161,7 +161,7 @@ export async function requestSeat(rideId) {
 }
 
 export async function getDriverRequests() {
-  if (!USE_BACKEND) {
+  if (!useBackend()) {
     await delay();
     return mockRequests;
   }
@@ -176,7 +176,7 @@ export async function getDriverRequests() {
 }
 
 export async function updateRequestStatus(requestId, status) {
-  if (!USE_BACKEND) {
+  if (!useBackend()) {
     await delay();
 
     return {
