@@ -18,23 +18,25 @@ function LoginPage({ setCurrentPage }) {
         </p>
 
         <form onSubmit={handleLogin} className="form">
-          <label>Email</label>
-          <input
-            type="email"
-            placeholder="yourname@umass.edu"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+        <label htmlFor="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          placeholder="yourname@umass.edu"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
 
-          <label>Password</label>
-          <input
-            type="password"
-            placeholder="Enter password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+        <label htmlFor="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          placeholder="Enter password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
 
           <button type="submit" className="primary-btn">
             Log In
@@ -42,7 +44,7 @@ function LoginPage({ setCurrentPage }) {
         </form>
 
         <p className="note">
-          For midpoint demo, this uses mock authentication.
+        Demo note: login is simplified for the final prototype.
         </p>
       </div>
     </div>

@@ -1,17 +1,30 @@
-function Navbar({ setCurrentPage }) {
-    return (
-      <nav className="navbar">
-        <div className="nav-logo" onClick={() => setCurrentPage("feed")}>
-          RideLink
-        </div>
-  
-        <div className="nav-links">
-          <button onClick={() => setCurrentPage("feed")}>Ride Feed</button>
-          <button onClick={() => setCurrentPage("create")}>Post Ride</button>
-          <button onClick={() => setCurrentPage("login")}>Login</button>
-        </div>
-      </nav>
-    );
-  }
-  
-  export default Navbar;
+function Navbar({ currentPage, setCurrentPage }) {
+  const navItems = [
+    { id: "feed", label: "Ride Feed" },
+    { id: "create", label: "Post Ride" },
+    { id: "dashboard", label: "Driver Dashboard" },
+    { id: "login", label: "Login" },
+  ];
+
+  return (
+    <nav className="navbar">
+      <div className="nav-logo" onClick={() => setCurrentPage("feed")}>
+        RideLink
+      </div>
+
+      <div className="nav-links">
+        {navItems.map((item) => (
+          <button
+            key={item.id}
+            className={currentPage === item.id ? "active-nav" : ""}
+            onClick={() => setCurrentPage(item.id)}
+          >
+            {item.label}
+          </button>
+        ))}
+      </div>
+    </nav>
+  );
+}
+
+export default Navbar;

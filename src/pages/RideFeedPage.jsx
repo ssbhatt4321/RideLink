@@ -1,68 +1,62 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Navbar from "../components/Navbar";
+import RideCard from "../components/RideCard";
+import SearchBar from "../components/SearchBar";
 
-function RideFeedPage({ rides, setCurrentPage, setSelectedRide }) {
+function RideFeedPage({ currentPage, rides, setCurrentPage, onViewDetails }) {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const filteredRides = rides.filter((ride) => {
-    const combinedText = `${ride.origin} ${ride.destination} ${ride.driverName}`.toLowerCase();
-    return combinedText.includes(searchTerm.toLowerCase());
-  });
+  const filteredRides = useMemo(() => {
+    const normalizedSearch = searchTerm.toLowerCase().trim();
+
+    return rides.filter((ride) => {
+      const combinedText = [
+        ride.origin,
+        ride.destination,
+        ride.driverName,
+        ride.driverCollege,
+        ride.status,
+      ]
+        .join(" ")
+        .toLowerCase();
+
+      return combinedText.includes(normalizedSearch);
+    });
+  }, [rides, searchTerm]);
 
   return (
     <>
-      <Navbar setCurrentPage={setCurrentPage} />
+      <Navbar currentPage={currentPage} setCurrentPage={setCurrentPage} />
 
-      <div className="page-container">
-        <div className="feed-header">
-          <h2>Available Rides</h2>
-          <p>Browse and filter rides across the Five College community.</p>
-        </div>
+      <main className="page-container">
+        <section className="page-header">
+          <div>
+            <p className="eyebrow">Ride discovery</p>
+            <h1>Available Rides</h1>
+            <p>
+              Browse, filter, and request rides across the Five College community.
+            </p>
+          </div>
+          <button className="primary-btn" onClick={() => setCurrentPage("create")}>
+            Post a Ride
+          </button>
+        </section>
 
-        <div className="search-bar card">
-          <input
-            type="text"
-            placeholder="Search by origin, destination, or driver..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </div>
+        <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
-        <div className="ride-grid">
-          {filteredRides.map((ride) => (
-            <div key={ride.id} className="card ride-card">
-              <h3>
-                {ride.origin} → {ride.destination}
-              </h3>
-              <p>
-                <strong>Date:</strong> {ride.departureDate}
-              </p>
-              <p>
-                <strong>Time:</strong> {ride.departureTime}
-              </p>
-              <p>
-                <strong>Driver:</strong> {ride.driverName}
-              </p>
-              <p>
-                <strong>Seats Available:</strong> {ride.seatsAvailable}
-              </p>
-              <p>
-                <strong>Price:</strong> {ride.price}
-              </p>
-
-              <button
-                className="primary-btn"
-                onClick={() => {
-                  setSelectedRide(ride);
-                  setCurrentPage("detail");
-                }}
-              >
-                View Details
-              </button>
+        <section className="ride-grid">
+          {filteredRides.length > 0 ? (
+            filteredRides.map((ride) => (
+              <RideCard key={ride.id} ride={ride} onViewDetails={onViewDetails} />
+            ))
+          ) : (
+            <div className="card empty-state">
+              <h3>No rides found</h3>
+              <p>Try searching for a different campus, destination, or driver.</p>
             </div>
-          ))}
-        </div>
-      </div>
+          )}
+        </section>
+      </main>
     </>
   );
 }
