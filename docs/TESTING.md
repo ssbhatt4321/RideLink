@@ -38,19 +38,19 @@ npm install
 ```
 
 Run tests once:
-
+```bash
 npm run test:run
-
+```
 Run tests with coverage:
-
+```bash
 npm run test:coverage
-
+```
 Manual UI Testing:
 
 Manual UI testing was performed by running the app locally:
-
+```bash
 npm run dev
-
+```
 The following workflows were manually checked:
 
 Login page loads correctly.
@@ -68,17 +68,17 @@ Backend Endpoint Testing:
 
 Backend endpoint testing was performed using a Node script that exercised the major API routes:
 
-GET /api/health
-POST /api/auth/register
-POST /api/rides
-GET /api/rides
-GET /api/rides/:id
-POST /api/requests
-PATCH /api/requests/:id/approve
-POST /api/messages
-GET /api/requests/:requestId/messages
-POST /api/ratings
-POST /api/reports
+- `GET /api/health`
+- `POST /api/auth/register`
+- `POST /api/rides`
+- `GET /api/rides`
+- `GET /api/rides/:id`
+- `POST /api/requests`
+- `PATCH /api/requests/:id/approve`
+- `POST /api/messages`
+- `GET /api/requests/:requestId/messages`
+- `POST /api/ratings`
+- `POST /api/reports`
 
 The backend endpoint test confirmed that approving a seat request successfully reduced the ride’s available seats from 2 to 1.
 
