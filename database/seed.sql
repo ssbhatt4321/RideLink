@@ -2,14 +2,14 @@
 
 -- USERS
 INSERT INTO users (id, name, email, college, password_hash, rating_avg) VALUES
-  ('a1000000-0000-0000-0000-000000000001', 'Shashank Bhatt', 'sbhatt@umass.edu', 'UMass Amherst', 'hashed_pw_1', 4.8),
-  ('a1000000-0000-0000-0000-000000000002', 'Akshat Shrivastava', 'akshat@umass.edu', 'UMass Amherst', 'hashed_pw_2', 4.9),
-  ('a1000000-0000-0000-0000-000000000003', 'Anshuman Deodhar', 'anshuman@umass.edu', 'UMass Amherst', 'hashed_pw_3', 5.0),
-  ('a1000000-0000-0000-0000-000000000004', 'Maya Patel', 'mpatel@smith.edu', 'Smith College', 'hashed_pw_4', 4.5),
-  ('a1000000-0000-0000-0000-000000000005', 'Jordan Lee', 'jlee@mtholyoke.edu', 'Mount Holyoke College', 'hashed_pw_5', 4.2),
-  ('a1000000-0000-0000-0000-000000000006', 'Priya Nair', 'pnair@hampshire.edu', 'Hampshire College', 'hashed_pw_6', 3.9),
-  ('a1000000-0000-0000-0000-000000000007', 'Chris Wang', 'cwang@amherst.edu', 'Amherst College', 'hashed_pw_7', 4.7),
-  ('a1000000-0000-0000-0000-000000000008', 'Sofia Russo', 'srusso@smith.edu', 'Smith College', 'hashed_pw_8', 4.6);
+  ('a1000000-0000-0000-0000-000000000001', 'Shashank Bhatt', 'sbhatt@umass.edu', 'UMass Amherst', '$2b$10$i6mlEmEO0An9mjGboXMGE.WECPlqwB8ciG8WI/lGpXA9fMCa/MZBm', 4.8),
+  ('a1000000-0000-0000-0000-000000000002', 'Akshat Shrivastava', 'akshat@umass.edu', 'UMass Amherst', '$2b$10$i6mlEmEO0An9mjGboXMGE.WECPlqwB8ciG8WI/lGpXA9fMCa/MZBm', 4.9),
+  ('a1000000-0000-0000-0000-000000000003', 'Anshuman Deodhar', 'anshuman@umass.edu', 'UMass Amherst', '$2b$10$i6mlEmEO0An9mjGboXMGE.WECPlqwB8ciG8WI/lGpXA9fMCa/MZBm', 5.0),
+  ('a1000000-0000-0000-0000-000000000004', 'Maya Patel', 'mpatel@smith.edu', 'Smith College', '$2b$10$i6mlEmEO0An9mjGboXMGE.WECPlqwB8ciG8WI/lGpXA9fMCa/MZBm', 4.5),
+  ('a1000000-0000-0000-0000-000000000005', 'Jordan Lee', 'jlee@mtholyoke.edu', 'Mount Holyoke College', '$2b$10$i6mlEmEO0An9mjGboXMGE.WECPlqwB8ciG8WI/lGpXA9fMCa/MZBm', 4.2),
+  ('a1000000-0000-0000-0000-000000000006', 'Priya Nair', 'pnair@hampshire.edu', 'Hampshire College', '$2b$10$i6mlEmEO0An9mjGboXMGE.WECPlqwB8ciG8WI/lGpXA9fMCa/MZBm', 3.9),
+  ('a1000000-0000-0000-0000-000000000007', 'Chris Wang', 'cwang@amherst.edu', 'Amherst College', '$2b$10$i6mlEmEO0An9mjGboXMGE.WECPlqwB8ciG8WI/lGpXA9fMCa/MZBm', 4.7),
+  ('a1000000-0000-0000-0000-000000000008', 'Sofia Russo', 'srusso@smith.edu', 'Smith College', '$2b$10$i6mlEmEO0An9mjGboXMGE.WECPlqwB8ciG8WI/lGpXA9fMCa/MZBm', 4.6);
 
 -- RIDES (active, full, canceled, completed)
 INSERT INTO rides (id, driver_id, origin, destination, departure, total_seats, available_seats, notes, status) VALUES
