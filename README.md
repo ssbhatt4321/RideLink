@@ -1,4 +1,3 @@
-```markdown
 # RideLink
 
 RideLink is a campus ride and carpool coordination platform for the Five College community. The system helps students post rides, search available rides, request seats, and coordinate transportation in a more structured and reliable way than informal group chats or social media.
@@ -75,6 +74,7 @@ RideLink/
 │   └── transactions.sql
 ├── docs/
 │   └── API.md
+|   └── TESTING.md
 ├── public/
 ├── src/
 │   ├── components/
@@ -101,30 +101,30 @@ RideLink/
 ├── routes.js
 ├── server.js
 └── vite.config.js
+```
+## How to Run Locally?
 
-How to Run Locally?
-
-Install dependencies:
+### Install dependencies:
 
 npm install
 
-Start the frontend development server:
+### Start the frontend development server:
 
 npm run dev
 
-Then open the local URL printed by Vite, usually:
+### Then open the local URL printed by Vite, usually:
 
 http://localhost:5173/
 
-Start the backend server:
+### Start the backend server:
 
 npm run server
 
-The backend runs at:
+### The backend runs at:
 
 http://localhost:4000
 
-Health check:
+### Health check:
 
 curl http://localhost:4000/api/health
 
@@ -132,7 +132,7 @@ Expected response:
 
 {"status":"ok"}
 
-Environment Variables:
+## Environment Variables:
 
 For frontend mock mode, create .env.local:
 
@@ -151,7 +151,7 @@ PORT=4000
 
 Do not commit .env or .env.local.
 
-Available Scripts:
+## Available Scripts:
 npm run dev
 
 Runs the frontend locally in development mode.
@@ -172,22 +172,22 @@ npm run lint
 
 Runs linting checks.
 
-API Documentation
+## API Documentation
 
 See:
 
 docs/API.md
 
-Build Instructions
+## Build Instructions
 
 See:
 
 BUILD.md
 
-Development Process:
+## Development Process:
 
 The team followed a sprint-based development process. Work was organized through GitHub branches, commits, and planned pull requests. Completed issues should be closed but not deleted, so progress remains traceable.
 
-Notes:
+## Notes:
 
 The frontend can run independently in mock mode for reliable demonstration. Backend/database integration is supported through the frontend service layer in src/services/api.js.
