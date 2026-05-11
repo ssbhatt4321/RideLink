@@ -37,9 +37,13 @@ function App() {
   };
 
   const handleRequestSeat = async (rideId) => {
-    const newRequest = await requestSeat(rideId);
-    setSeatRequests((prevRequests) => [newRequest, ...prevRequests]);
-    return newRequest;
+    try {
+      const newRequest = await requestSeat(rideId);
+      setSeatRequests((prevRequests) => [newRequest, ...prevRequests]);
+      return newRequest;
+    } catch (error) {
+      throw error;
+    }
   };
 
   const handleApproveRequest = (rideId) => {

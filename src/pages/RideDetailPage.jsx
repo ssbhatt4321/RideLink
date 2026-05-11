@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 
 function RideDetailPage({ currentPage, selectedRide, setCurrentPage, onRequestSeat }) {
   const [requestStatus, setRequestStatus] = useState("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
   if (!selectedRide) {
     return (
@@ -23,8 +24,14 @@ function RideDetailPage({ currentPage, selectedRide, setCurrentPage, onRequestSe
 
   const handleRequestSeat = async () => {
     setRequestStatus("loading");
-    await onRequestSeat(selectedRide.id);
-    setRequestStatus("submitted");
+    setErrorMessage("");
+    try {
+      await onRequestSeat(selectedRide.id);
+      setRequestStatus("submitted");
+    } catch (error) {
+      setRequestStatus("idle");
+      setErrorMessage(error.message || "Failed to submit seat request. Please try again.");
+    }
   };
 
   const isFull = selectedRide.seatsAvailable === 0 || selectedRide.status === "Full";
@@ -80,6 +87,12 @@ function RideDetailPage({ currentPage, selectedRide, setCurrentPage, onRequestSe
           {requestSubmitted && (
             <div className="success-banner">
               Seat request submitted successfully. Status: Pending driver approval.
+            </div>
+          )}
+
+          {errorMessage && (
+            <div className="warning-banner">
+              {errorMessage}
             </div>
           )}
 

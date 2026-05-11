@@ -1,4 +1,3 @@
-cat > database/queries.sql << 'EOF'
 -- RideLink Query Library
 -- Author: Anshuman Deodhar
 -- These are the SQL queries Shashank plugs into the Express backend routes
@@ -191,4 +190,3 @@ ORDER BY r.created_at DESC;
 INSERT INTO reports (reporter_id, reported_user_id, reported_ride_id, reason, details)
 VALUES ($1, $2, $3, $4, $5)
 RETURNING *;
-EOF
