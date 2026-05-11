@@ -100,3 +100,5 @@ Known Limitations:
 - Frontend authentication is mocked for demo stability.
 - The frontend can run in backend mode, but local backend/database setup may depend on each machine’s PostgreSQL configuration.
 - Full production deployment has not been completed.
+
+Seeded test users use the password: password123
