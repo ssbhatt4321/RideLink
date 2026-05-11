@@ -228,3 +228,5 @@ Check:
 -   `DATABASE_URL` is correct
 -   `database/schema.sql` and `database/seed.sql` have been run
 -   `.env` is present locally but not committed
+
+Seeded test users use the password: password123
