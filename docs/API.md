@@ -4,7 +4,6 @@ This document describes the REST API for RideLink. The API supports authenticati
 
 Base URL for local development:
 
-```text
 http://localhost:4000/api
 
 Responses are returned in JSON format.
