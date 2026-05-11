@@ -22,173 +22,209 @@ git clone https://github.com/ssbhatt4321/RideLink.git
 cd RideLink
 ```
 
-Install Dependencies:
+
+## Install Dependencies
+```bash
 npm install
-Run the Frontend Locally
+```
+
+## Run the Frontend Locally
+
+```
 npm run dev
+```
 
 After running the command, Vite will print a local development URL such as:
 
+```
 http://localhost:5173/
+```
 
-If port 5173 is already in use, Vite may use another port such as 5174 or 5175.
+If port `5173` is already in use, Vite may use another port such as `5174` or `5175`.
 
-Build for Production:
+## Build for Production
+
+```
 npm run build
+```
 
-This creates a production-ready build in the dist/ folder.
+This creates a production-ready build in the `dist/` folder.
 
-Preview Production Build:
+## Preview Production Build
+
+```
 npm run preview
+```
 
-Frontend Environment Variables:
+## Frontend Environment Variables
 
 The frontend service layer supports switching between mock mode and backend mode.
 
-Create a .env.local file in the project root.
+Create a `.env.local` file in the project root.
 
 For stable frontend demo mode:
 
-VITE_API_BASE_URL=http://localhost:4000/api
-VITE_USE_BACKEND=false
+```
+VITE_API_BASE_URL=http://localhost:4000/apiVITE_USE_BACKEND=false
+```
 
 For backend integration mode:
 
-VITE_API_BASE_URL=http://localhost:4000/api
-VITE_USE_BACKEND=true
+```
+VITE_API_BASE_URL=http://localhost:4000/apiVITE_USE_BACKEND=true
+```
 
-When VITE_USE_BACKEND=false, the frontend uses mock data through src/services/api.js.
-When VITE_USE_BACKEND=true, the frontend attempts to call the Express backend API.
+When `VITE_USE_BACKEND=false`, the frontend uses mock data through `src/services/api.js`.
 
-Run the Backend Locally:
+When `VITE_USE_BACKEND=true`, the frontend attempts to call the Express backend API.
+
+## Run the Backend Locally
 
 The backend uses:
 
-Node.js
-Express.js
-PostgreSQL
+-   Node.js
+-   Express.js
+-   PostgreSQL
 
-Start the backend server:
+### Start the Backend Server
 
+```
 npm run server
+```
 
 The backend should run at:
 
+```
 http://localhost:4000
+```
 
 Health check endpoint:
 
+```
 curl http://localhost:4000/api/health
+```
 
 Expected response:
 
-{"status":"ok"}
-Database Setup
+```
+{  "status": "ok"}
+```
+
+## Database Setup
 
 The project database uses PostgreSQL.
 
 Expected setup flow:
 
-Create a PostgreSQL database named ridelink.
-Run the schema creation SQL.
-Run the seed data SQL.
-Configure backend .env with database credentials.
+1.  Create a PostgreSQL database named `ridelink`.
+2.  Run the schema creation SQL.
+3.  Run the seed data SQL.
+4.  Configure backend `.env` with database credentials.
 
 Example:
 
-createdb ridelink
-psql ridelink < database/schema.sql
-psql ridelink < database/seed.sql
+```
+createdb ridelinkpsql ridelink < database/schema.sqlpsql ridelink < database/seed.sql
+```
 
-Example .env file for the backend:
+Example `.env` file for the backend:
 
-DATABASE_URL=postgres://username:password@localhost:5432/ridelink
-PORT=4000
+```
+DATABASE_URL=postgres://username:password@localhost:5432/ridelinkPORT=4000
+```
 
 For local machines where PostgreSQL uses trust authentication, the URL may be:
 
-DATABASE_URL=postgres://username@localhost:5432/ridelink
-PORT=4000
+```
+DATABASE_URL=postgres://username@localhost:5432/ridelinkPORT=4000
+```
 
-Do not commit .env or .env.local files.
+Do not commit `.env` or `.env.local` files.
 
-Testing:
+## Testing
 
 Current testing includes manual UI validation of the main frontend workflows:
 
-Login navigation
-Ride feed rendering
-Ride search/filter
-Ride detail view
-Seat request state update
-Create ride form submission
-Driver dashboard request approval/rejection
+-   Login navigation
+-   Ride feed rendering
+-   Ride search/filter
+-   Ride detail view
+-   Seat request state update
+-   Create ride form submission
+-   Driver dashboard request approval/rejection
 
 Backend endpoint testing includes:
 
-Health check
-User registration
-Ride creation
-Ride search
-Ride detail retrieval
-Seat request creation
-Seat request approval
-Available seat update after approval
-Message creation/retrieval
-Ratings
-Reports
-Deployment
+-   Health check
+-   User registration
+-   Ride creation
+-   Ride search
+-   Ride detail retrieval
+-   Seat request creation
+-   Seat request approval
+-   Available seat update after approval
+-   Message creation/retrieval
+-   Ratings
+-   Reports
+
+## Deployment
 
 Frontend deployment options:
 
-Render
-Netlify
-Vercel
+-   Render
+-   Netlify
+-   Vercel
 
 General frontend deployment process:
 
-Build the frontend with npm run build.
-Deploy the generated dist/ folder.
-Set VITE_API_BASE_URL to the deployed backend API URL.
-Verify major workflows in the deployed environment.
+1.  Build the frontend with `npm run build`.
+2.  Deploy the generated `dist/` folder.
+3.  Set `VITE_API_BASE_URL` to the deployed backend API URL.
+4.  Verify major workflows in the deployed environment.
 
 Backend deployment options:
 
-Render
-Railway
-Fly.io
+-   Render
+-   Railway
+-   Fly.io
 
 General backend deployment process:
 
-Deploy the Express server.
-Configure the deployed PostgreSQL database.
-Set DATABASE_URL and PORT environment variables.
-Verify /api/health.
-Test major API endpoints.
-Troubleshooting
-Port already in use
+1.  Deploy the Express server.
+2.  Configure the deployed PostgreSQL database.
+3.  Set `DATABASE_URL` and `PORT` environment variables.
+4.  Verify `/api/health`.
+5.  Test major API endpoints.
 
-If Vite reports that port 5173 is in use, it will automatically try another port.
+## Troubleshooting
 
-Missing dependencies:
+### Port Already in Use
+
+If Vite reports that port `5173` is in use, it will automatically try another port.
+
+### Missing Dependencies
 
 Run:
 
+```
 npm install
-Frontend does not load correctly
+```
+
+### Frontend Does Not Load Correctly
 
 Check:
 
-Terminal for Vite errors
-Browser console errors
-Import paths in src/App.jsx
-Whether all files are committed and pulled correctly
-Backend does not connect to database
+-   Terminal for Vite errors
+-   Browser console errors
+-   Import paths in `src/App.jsx`
+-   Whether all files are committed and pulled correctly
+
+### Backend Does Not Connect to Database
 
 Check:
 
-PostgreSQL is running
-The ridelink database exists
-DATABASE_URL is correct
-database/schema.sql and database/seed.sql have been run
-.env is present locally but not committed
+-   PostgreSQL is running
+-   The `ridelink` database exists
+-   `DATABASE_URL` is correct
+-   `database/schema.sql` and `database/seed.sql` have been run
+-   `.env` is present locally but not committed
